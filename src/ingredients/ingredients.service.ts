@@ -24,7 +24,9 @@ export class IngredientsService {
   }
 
   async findAll() {
-    const products=await this.ingredientRepository.find({});
+    const products=await this.ingredientRepository.find(
+      {relations:{images:true}}
+    );
     return products;
   }
 

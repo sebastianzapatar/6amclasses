@@ -7,4 +7,6 @@ export class CreateIngredientDto {
     @ApiProperty({ example: 'Carrot, Onion, Fish', 
         description: 'The name of the ingridient' })
     name:string
+
+    
 }
