@@ -16,6 +16,11 @@ async function bootstrap() {
       forbidNonWhitelisted:true,
     })
   );
+  // Activar CORS para cualquier origen
+  app.enableCors({
+    origin: '*', // Permitir todos los orígenes
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos permitidos
+  });
   const document=SwaggerModule.createDocument(app,config);
   SwaggerModule.setup('documentationswagger',app,document);
   await app.listen(3000);

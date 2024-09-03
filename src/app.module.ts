@@ -9,6 +9,7 @@ import { Ingredient } from './ingredients/entities/ingredient.entity';
 import { Image } from './images/entities/image.entity';
 import { DishesModule } from './dishes/dishes.module';
 import { Dish } from './dishes/entities/dish.entity';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),TypeOrmModule.forRoot({
@@ -21,7 +22,7 @@ import { Dish } from './dishes/entities/dish.entity';
       synchronize:true,
       autoLoadEntities:true,
       entities: [Ingredient, Image,Dish],
-    }), IngredientsModule, ImagesModule, DishesModule
+    }), IngredientsModule, ImagesModule, DishesModule, AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
