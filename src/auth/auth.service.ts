@@ -1,10 +1,11 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/auth.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { LoginAuthDto } from './dto/login-auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -29,7 +30,23 @@ export class AuthService {
     
     
   }
-
+  async login(loginDot:LoginAuthDto){
+    try{
+      const {email,password}=loginDot;
+      const user=await this.userRepository.findOneBy({email});
+      if(!user){
+        throw new UnauthorizedException('Invalid credentials');
+      }
+      if(!bcrypt.compareSync(password,user.password)){
+        throw new UnauthorizedException('Invalid credentials');
+      }
+      return user;
+    }
+    catch(e){
+        console.log(e);
+        throw new UnauthorizedException('Invalid credentials');
+    }
+  }
   findAll() {
     return `This action returns all auth`;
   }
