@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Ingredient } from "src/ingredients/entities/ingredient.entity";
+import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('users')
 export class User {
@@ -23,5 +24,11 @@ export class User {
         default: ['user']
     })
     roles:string[];
+    @OneToMany(()=>Ingredient,ingredient=>ingredient.user)
+    ingredients:Ingredient[];
+    @BeforeInsert()
+    emailToLowerCase(){
+        this.email=this.email.toLowerCase();
+    }
 
 }

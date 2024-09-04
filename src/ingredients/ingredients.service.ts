@@ -4,6 +4,7 @@ import { UpdateIngredientDto } from './dto/update-ingredient.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Ingredient } from './entities/ingredient.entity';
+import { User } from 'src/auth/entities/auth.entity';
 
 @Injectable()
 export class IngredientsService {
@@ -11,9 +12,10 @@ export class IngredientsService {
     @InjectRepository(Ingredient)
     private readonly ingredientRepository:Repository<Ingredient>
   ){}
-  async create(createIngredientDto: CreateIngredientDto) {
+  async create(createIngredientDto: CreateIngredientDto,user:User) {
     try{
-      const ingredient=this.ingredientRepository.create(createIngredientDto);
+      const ingredient=this.ingredientRepository.create({
+        ...createIngredientDto,user});
       await this.ingredientRepository.save(ingredient);
       return ingredient;
     }
@@ -25,7 +27,7 @@ export class IngredientsService {
 
   async findAll() {
     const products=await this.ingredientRepository.find(
-      {relations:{images:true}}
+      {relations:{images:true,user:true}}
     );
     return products;
   }

@@ -4,14 +4,16 @@ import { CreateIngredientDto } from './dto/create-ingredient.dto';
 import { UpdateIngredientDto } from './dto/update-ingredient.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { AdminGuardGuard } from 'src/admin-guard/admin-guard.guard';
+import { getUser } from 'src/auth/decorators/getUser';
+import { User } from 'src/auth/entities/auth.entity';
 @Controller('ingredients')
 export class IngredientsController {
   constructor(private readonly ingredientsService: IngredientsService) {}
 
   @Post()
   @UseGuards(AuthGuard(),AdminGuardGuard)
-  create(@Body() createIngredientDto: CreateIngredientDto) {
-    return this.ingredientsService.create(createIngredientDto);
+  create(@getUser() user:User, @Body() createIngredientDto: CreateIngredientDto) {
+    return this.ingredientsService.create(createIngredientDto,user);
   }
 
   @Get()
