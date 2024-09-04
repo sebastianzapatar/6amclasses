@@ -3,13 +3,16 @@ import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { LoginAuthDto } from './dto/login-auth.dto';
+import { getUser } from './decorators/getUser';
+import { User } from './entities/auth.entity';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post()
-  create(@Body() createAuthDto: CreateAuthDto) {
+  create(@getUser() user:User, @Body() createAuthDto: CreateAuthDto) {
+    console.log(user);
     return this.authService.create(createAuthDto);
   }
   @Post('login')
