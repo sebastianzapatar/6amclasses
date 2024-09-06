@@ -16,7 +16,9 @@ export class User {
     @Column('bool',{default:true})
     isActive:boolean;
     
-    @Column('text')
+    @Column('text',{
+        default:'user'
+    })
     fullName:string;
     
     @Column('text',{
