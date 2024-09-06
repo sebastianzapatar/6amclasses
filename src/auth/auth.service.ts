@@ -59,6 +59,7 @@ export class AuthService {
 
   // Método para manejar la autenticación con Auth0
   async validateAuth0User(profile: any) {
+    console.log(profile);
     const { email, name, picture, id } = profile; // Datos que recibes desde Auth0
     let user = await this.userRepository.findOneBy({ email });
     console.log(user);
