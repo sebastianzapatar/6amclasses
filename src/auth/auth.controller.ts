@@ -62,6 +62,6 @@ export class AuthController {
   @Get('auth0/logout')
   async auth0Logout(@Res() res) {
     const returnTo = 'http://localhost:3000'; // URL de redirección después de logout
-    res.redirect(`https://YOUR_AUTH0_DOMAIN/v2/logout?client_id=YOUR_CLIENT_ID&returnTo=${returnTo}`);
+    res.redirect(`dev-m5w5ruh6rkweo0ah.us.auth0.com/v2/logout?client_id=YOUR_CLIENT_ID&returnTo=${returnTo}`);
   }
 }
